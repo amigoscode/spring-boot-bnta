@@ -11,7 +11,7 @@ public class CarService {
 
     private CarDAO carDAO;
 
-    public CarService(@Qualifier("postgres") CarDAO carDAO) {
+    public CarService(@Qualifier("fake") CarDAO carDAO) {
         this.carDAO = carDAO;
     }
 
