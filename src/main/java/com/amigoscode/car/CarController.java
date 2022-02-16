@@ -1,7 +1,9 @@
 package com.amigoscode.car;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -21,21 +23,6 @@ public class CarController {
 
     @GetMapping(path = "cars")
     public List<Car> getCars() {
-        return carService.getAllCars();
-    }
-
-    @GetMapping(path = "cars/{id}")
-    public List<Car> getCarById(@PathVariable("id") Integer carId) {
-        return null;
-    }
-
-    @DeleteMapping(path = "cars/{id}")
-    public void deleteCarById(@PathVariable("id") Integer carId) {
-
-    }
-
-    @PutMapping(path = "cars/{id}")
-    public void updateCar(@PathVariable("id") Integer carId, @RequestBody Car update) {
-
+        return carService.getCars();
     }
 }

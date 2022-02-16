@@ -11,7 +11,7 @@ public class CarService {
 
     private CarDAO carDAO;
 
-    public CarService(@Qualifier("fake") CarDAO carDAO) {
+    public CarService(@Qualifier("postgres") CarDAO carDAO) {
         this.carDAO = carDAO;
     }
 
@@ -27,7 +27,7 @@ public class CarService {
         }
     }
 
-    public List<Car> getAllCars() {
+    public List<Car> getCars() {
         return carDAO.selectAllCars();
     }
 }

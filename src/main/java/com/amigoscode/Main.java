@@ -1,7 +1,12 @@
 package com.amigoscode;
 
+import com.amigoscode.car.CarController;
+import com.amigoscode.car.CarDAO;
+import com.amigoscode.car.CarService;
+import com.amigoscode.car.FakeCarDataAccessService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class Main {
@@ -12,8 +17,13 @@ public class Main {
         SpringApplication.run(Main.class, args);
     }
 
-//    @Bean("fake")
+//    @Bean
 //    public CarDAO fakeDataAccessService() {
 //        return new FakeCarDataAccessService();
+//    }
+//
+//    @Bean
+//    public CarService fakeDataAccessService(CarDAO carDAO) {
+//        return new CarService(carDAO);
 //    }
 }
