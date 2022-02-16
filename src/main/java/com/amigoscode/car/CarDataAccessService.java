@@ -1,11 +1,18 @@
 package com.amigoscode.car;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository("postgres")
-public class CarDataAccessService implements CarDAO{
+public class CarDataAccessService implements CarDAO {
+
+    private JdbcTemplate jdbcTemplate;
+
+    public CarDataAccessService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Car selectCarById(Integer id) {
@@ -14,7 +21,9 @@ public class CarDataAccessService implements CarDAO{
 
     @Override
     public List<Car> selectAllCars() {
-        return List.of(new Car(11 ,  "from real db", Brand.HONDA, 0.0));
+        return List.of(
+                new Car(1, "fobar", Brand.HONDA, 12000.00)
+        );
     }
 
     @Override
