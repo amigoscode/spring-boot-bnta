@@ -1,6 +1,7 @@
 package com.amigoscode.car;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,24 +17,63 @@ public class CarDataAccessService implements CarDAO {
 
     @Override
     public Car selectCarById(Integer id) {
+        // todo: implement this method to get car by id from database
         return null;
     }
 
     @Override
     public List<Car> selectAllCars() {
-        return List.of(
-                new Car(1, "fobar", Brand.HONDA, 12000.00)
-        );
+        String sql = """
+                SELECT id, regnumber, brand, price
+                FROM car
+                """;
+
+        RowMapper<Car> carRowMapper = (rs, rowNum) -> {
+            Car car = new Car(
+                    rs.getInt("id"),
+                    rs.getString("regnumber"),
+                    Brand.valueOf(rs.getString("brand")),
+                    rs.getDouble("price")
+            );
+            return car;
+        };
+
+        List<Car> cars = jdbcTemplate.query(sql, carRowMapper);
+
+        /*
+            List<Car> cars = jdbcTemplate.query(sql, (rs, rowNum) -> {
+                Car car = new Car(
+                        rs.getInt("id"),
+                        rs.getString("regnumber"),
+                        Brand.valueOf(rs.getString("brand")),
+                        rs.getDouble("price")
+                );
+                return car;
+            });
+        */
+
+        return cars;
     }
 
     @Override
     public int insertCar(Car car) {
-        return 0;
+        String sql = """
+                INSERT INTO car(regnumber, brand, price)
+                VALUES(?, ?, ?)
+                """;
+        int rowsAffected = jdbcTemplate.update(
+                sql,
+                car.getRegNumber(),
+                car.getBrand().name(),
+                car.getPrice()
+        );
+        return rowsAffected;
     }
 
     @Override
     public int deleteCar(Integer id) {
-        return 0;
+        String sql = "DELETE FROM car WHERE id = ?";
+        return jdbcTemplate.update(sql, id);
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.amigoscode.car;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +21,10 @@ public class CarController {
     @GetMapping(path = "cars")
     public List<Car> getCars() {
         return carService.getCars();
+    }
+
+    @DeleteMapping(path = "cars/{id}")
+    public void deleteCarById(@PathVariable("id") Integer carId) {
+        carService.deleteCarById(carId);
     }
 }

@@ -30,4 +30,16 @@ public class CarService {
     public List<Car> getCars() {
         return carDAO.selectAllCars();
     }
+
+    public void deleteCarById(int carId) {
+        // check if id exists
+        if (carDAO.selectCarById(carId) == null) {
+            // not throw exception
+            throw new CarNotFoundException(
+                    "Car with id " + carId + " not found"
+            );
+        }
+        // otherwise delete
+        carDAO.deleteCar(carId);
+    }
 }
